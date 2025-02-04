@@ -1,0 +1,29 @@
+name: 'github_reactions'
+
+config-version: 2
+version: '0.1'
+
+profile: 'github_reactions'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+analysis-paths: ["analysis"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+    - "logs"
+
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+models:
+  github_reactions:
+    materialized: table
+    staging:
+      materialized: view
+      +docs:
+        node_color: 'silver'
+    +docs:
+      node_color: 'gold'

@@ -1,0 +1,658 @@
+version: 2
+sources:
+  - name: raw_data
+    schema: '{{ var ("source_dataset_name") }}'
+    tables:
+      - name: _dlt_loads
+      - name: watch_event
+      - name: fork_event
+      - name: issues_event
+      - name: issue_comment_event
+      - name: pull_request_review_event
+      - name: push_event
+      - name: delete_event
+      - name: pull_request_event
+      - name: create_event
+      - name: pull_request_review_comment_event
+      - name: push_event__payload__commits
+  - name: transformed_data
+    schema: '{{ var ("destination_dataset_name") }}'
+    tables:
+      - name: dlt_processed_load_ids
+
+models:
+      - name: dlt_processed_load_ids
+        description: "This table contains all processed load ids for incremental loading"
+      - name: _dlt_loads
+        description: "Created by DLT. Tracks completed loads"
+        columns:
+          - name: load_id
+            tests:
+              - not_null
+          - name: schema_name
+          - name: status
+            tests:
+              - not_null
+          - name: inserted_at
+            tests:
+              - not_null
+          - name: schema_version_hash
+      - name: watch_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__action
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: fork_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__forkee__id
+          - name: payload__forkee__node_id
+          - name: payload__forkee__name
+          - name: payload__forkee__full_name
+          - name: payload__forkee__private
+          - name: payload__forkee__owner
+          - name: payload__forkee__html_url
+          - name: payload__forkee__description
+          - name: payload__forkee__fork
+          - name: payload__forkee__url
+          - name: payload__forkee__forks_url
+          - name: payload__forkee__keys_url
+          - name: payload__forkee__collaborators_url
+          - name: payload__forkee__teams_url
+          - name: payload__forkee__hooks_url
+          - name: payload__forkee__issue_events_url
+          - name: payload__forkee__events_url
+          - name: payload__forkee__assignees_url
+          - name: payload__forkee__branches_url
+          - name: payload__forkee__tags_url
+          - name: payload__forkee__blobs_url
+          - name: payload__forkee__git_tags_url
+          - name: payload__forkee__git_refs_url
+          - name: payload__forkee__trees_url
+          - name: payload__forkee__statuses_url
+          - name: payload__forkee__languages_url
+          - name: payload__forkee__stargazers_url
+          - name: payload__forkee__contributors_url
+          - name: payload__forkee__subscribers_url
+          - name: payload__forkee__subscription_url
+          - name: payload__forkee__commits_url
+          - name: payload__forkee__git_commits_url
+          - name: payload__forkee__comments_url
+          - name: payload__forkee__issue_comment_url
+          - name: payload__forkee__contents_url
+          - name: payload__forkee__compare_url
+          - name: payload__forkee__merges_url
+          - name: payload__forkee__archive_url
+          - name: payload__forkee__downloads_url
+          - name: payload__forkee__issues_url
+          - name: payload__forkee__pulls_url
+          - name: payload__forkee__milestones_url
+          - name: payload__forkee__notifications_url
+          - name: payload__forkee__labels_url
+          - name: payload__forkee__releases_url
+          - name: payload__forkee__deployments_url
+          - name: payload__forkee__created_at
+          - name: payload__forkee__updated_at
+          - name: payload__forkee__pushed_at
+          - name: payload__forkee__git_url
+          - name: payload__forkee__ssh_url
+          - name: payload__forkee__clone_url
+          - name: payload__forkee__svn_url
+          - name: payload__forkee__homepage
+          - name: payload__forkee__size
+          - name: payload__forkee__stargazers_count
+          - name: payload__forkee__watchers_count
+          - name: payload__forkee__has_issues
+          - name: payload__forkee__has_projects
+          - name: payload__forkee__has_downloads
+          - name: payload__forkee__has_wiki
+          - name: payload__forkee__has_pages
+          - name: payload__forkee__has_discussions
+          - name: payload__forkee__forks_count
+          - name: payload__forkee__archived
+          - name: payload__forkee__disabled
+          - name: payload__forkee__open_issues_count
+          - name: payload__forkee__allow_forking
+          - name: payload__forkee__is_template
+          - name: payload__forkee__web_commit_signoff_required
+          - name: payload__forkee__topics
+          - name: payload__forkee__visibility
+          - name: payload__forkee__forks
+          - name: payload__forkee__open_issues
+          - name: payload__forkee__watchers
+          - name: payload__forkee__default_branch
+          - name: payload__forkee__public
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: issues_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__action
+          - name: payload__issue__url
+          - name: payload__issue__repository_url
+          - name: payload__issue__labels_url
+          - name: payload__issue__comments_url
+          - name: payload__issue__events_url
+          - name: payload__issue__html_url
+          - name: payload__issue__id
+          - name: payload__issue__node_id
+          - name: payload__issue__number
+          - name: payload__issue__title
+          - name: payload__issue__user
+          - name: payload__issue__labels
+          - name: payload__issue__state
+          - name: payload__issue__locked
+          - name: payload__issue__assignees
+          - name: payload__issue__comments
+          - name: payload__issue__created_at
+          - name: payload__issue__updated_at
+          - name: payload__issue__author_association
+          - name: payload__issue__sub_issues_summary
+          - name: payload__issue__body
+          - name: payload__issue__reactions
+          - name: payload__issue__timeline_url
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+          - name: payload__issue__assignee
+          - name: payload__issue__closed_at
+          - name: payload__issue__state_reason
+      - name: issue_comment_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__action
+          - name: payload__issue__url
+          - name: payload__issue__repository_url
+          - name: payload__issue__labels_url
+          - name: payload__issue__comments_url
+          - name: payload__issue__events_url
+          - name: payload__issue__html_url
+          - name: payload__issue__id
+          - name: payload__issue__node_id
+          - name: payload__issue__number
+          - name: payload__issue__title
+          - name: payload__issue__user
+          - name: payload__issue__labels
+          - name: payload__issue__state
+          - name: payload__issue__locked
+          - name: payload__issue__assignee
+          - name: payload__issue__assignees
+          - name: payload__issue__comments
+          - name: payload__issue__created_at
+          - name: payload__issue__updated_at
+          - name: payload__issue__author_association
+          - name: payload__issue__sub_issues_summary
+          - name: payload__issue__draft
+          - name: payload__issue__pull_request
+          - name: payload__issue__body
+          - name: payload__issue__reactions
+          - name: payload__issue__timeline_url
+          - name: payload__comment__url
+          - name: payload__comment__html_url
+          - name: payload__comment__issue_url
+          - name: payload__comment__id
+          - name: payload__comment__node_id
+          - name: payload__comment__user
+          - name: payload__comment__created_at
+          - name: payload__comment__updated_at
+          - name: payload__comment__author_association
+          - name: payload__comment__body
+          - name: payload__comment__reactions
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+          - name: payload__issue__closed_at
+          - name: payload__comment__performed_via_github_app
+          - name: payload__issue__milestone
+          - name: payload__issue__state_reason
+      - name: pull_request_review_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__action
+          - name: payload__review__id
+          - name: payload__review__node_id
+          - name: payload__review__user
+          - name: payload__review__body
+          - name: payload__review__commit_id
+          - name: payload__review__submitted_at
+          - name: payload__review__state
+          - name: payload__review__html_url
+          - name: payload__review__pull_request_url
+          - name: payload__review__author_association
+          - name: payload__review___links
+          - name: payload__pull_request__url
+          - name: payload__pull_request__id
+          - name: payload__pull_request__node_id
+          - name: payload__pull_request__html_url
+          - name: payload__pull_request__diff_url
+          - name: payload__pull_request__patch_url
+          - name: payload__pull_request__issue_url
+          - name: payload__pull_request__number
+          - name: payload__pull_request__state
+          - name: payload__pull_request__locked
+          - name: payload__pull_request__title
+          - name: payload__pull_request__user
+          - name: payload__pull_request__body
+          - name: payload__pull_request__created_at
+          - name: payload__pull_request__updated_at
+          - name: payload__pull_request__merge_commit_sha
+          - name: payload__pull_request__assignee
+          - name: payload__pull_request__assignees
+          - name: payload__pull_request__requested_reviewers
+          - name: payload__pull_request__requested_teams
+          - name: payload__pull_request__labels
+          - name: payload__pull_request__draft
+          - name: payload__pull_request__commits_url
+          - name: payload__pull_request__review_comments_url
+          - name: payload__pull_request__review_comment_url
+          - name: payload__pull_request__comments_url
+          - name: payload__pull_request__statuses_url
+          - name: payload__pull_request__head
+          - name: payload__pull_request__base
+          - name: payload__pull_request___links
+          - name: payload__pull_request__author_association
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: push_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__repository_id
+          - name: payload__push_id
+          - name: payload__size
+          - name: payload__distinct_size
+          - name: payload__ref
+          - name: payload__head
+          - name: payload__before
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: delete_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__ref
+          - name: payload__ref_type
+          - name: payload__pusher_type
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: pull_request_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__action
+          - name: payload__number
+          - name: payload__pull_request__url
+          - name: payload__pull_request__id
+          - name: payload__pull_request__node_id
+          - name: payload__pull_request__html_url
+          - name: payload__pull_request__diff_url
+          - name: payload__pull_request__patch_url
+          - name: payload__pull_request__issue_url
+          - name: payload__pull_request__number
+          - name: payload__pull_request__state
+          - name: payload__pull_request__locked
+          - name: payload__pull_request__title
+          - name: payload__pull_request__user
+          - name: payload__pull_request__body
+          - name: payload__pull_request__created_at
+          - name: payload__pull_request__updated_at
+          - name: payload__pull_request__closed_at
+          - name: payload__pull_request__merged_at
+          - name: payload__pull_request__merge_commit_sha
+          - name: payload__pull_request__assignees
+          - name: payload__pull_request__requested_reviewers
+          - name: payload__pull_request__requested_teams
+          - name: payload__pull_request__labels
+          - name: payload__pull_request__draft
+          - name: payload__pull_request__commits_url
+          - name: payload__pull_request__review_comments_url
+          - name: payload__pull_request__review_comment_url
+          - name: payload__pull_request__comments_url
+          - name: payload__pull_request__statuses_url
+          - name: payload__pull_request__head
+          - name: payload__pull_request__base
+          - name: payload__pull_request___links
+          - name: payload__pull_request__author_association
+          - name: payload__pull_request__merged
+          - name: payload__pull_request__mergeable_state
+          - name: payload__pull_request__merged_by
+          - name: payload__pull_request__comments
+          - name: payload__pull_request__review_comments
+          - name: payload__pull_request__maintainer_can_modify
+          - name: payload__pull_request__commits
+          - name: payload__pull_request__additions
+          - name: payload__pull_request__deletions
+          - name: payload__pull_request__changed_files
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+          - name: payload__pull_request__assignee
+          - name: payload__pull_request__mergeable
+          - name: payload__pull_request__rebaseable
+      - name: create_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__ref
+          - name: payload__ref_type
+          - name: payload__master_branch
+          - name: payload__description
+          - name: payload__pusher_type
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: pull_request_review_comment_event
+        columns:
+          - name: id
+            tests:
+              - not_null
+          - name: type
+          - name: actor__id
+          - name: actor__login
+          - name: actor__display_login
+          - name: actor__gravatar_id
+          - name: actor__url
+          - name: actor__avatar_url
+          - name: repo__id
+          - name: repo__name
+          - name: repo__url
+          - name: payload__action
+          - name: payload__comment__url
+          - name: payload__comment__pull_request_review_id
+          - name: payload__comment__id
+          - name: payload__comment__node_id
+          - name: payload__comment__diff_hunk
+          - name: payload__comment__path
+          - name: payload__comment__commit_id
+          - name: payload__comment__original_commit_id
+          - name: payload__comment__user
+          - name: payload__comment__body
+          - name: payload__comment__created_at
+          - name: payload__comment__updated_at
+          - name: payload__comment__html_url
+          - name: payload__comment__pull_request_url
+          - name: payload__comment__author_association
+          - name: payload__comment___links
+          - name: payload__comment__reactions
+          - name: payload__comment__original_line
+          - name: payload__comment__side
+          - name: payload__comment__in_reply_to_id
+          - name: payload__comment__original_position
+          - name: payload__comment__subject_type
+          - name: payload__pull_request__url
+          - name: payload__pull_request__id
+          - name: payload__pull_request__node_id
+          - name: payload__pull_request__html_url
+          - name: payload__pull_request__diff_url
+          - name: payload__pull_request__patch_url
+          - name: payload__pull_request__issue_url
+          - name: payload__pull_request__number
+          - name: payload__pull_request__state
+          - name: payload__pull_request__locked
+          - name: payload__pull_request__title
+          - name: payload__pull_request__user
+          - name: payload__pull_request__body
+          - name: payload__pull_request__created_at
+          - name: payload__pull_request__updated_at
+          - name: payload__pull_request__merge_commit_sha
+          - name: payload__pull_request__assignee
+          - name: payload__pull_request__assignees
+          - name: payload__pull_request__requested_reviewers
+          - name: payload__pull_request__requested_teams
+          - name: payload__pull_request__labels
+          - name: payload__pull_request__draft
+          - name: payload__pull_request__commits_url
+          - name: payload__pull_request__review_comments_url
+          - name: payload__pull_request__review_comment_url
+          - name: payload__pull_request__comments_url
+          - name: payload__pull_request__statuses_url
+          - name: payload__pull_request__head
+          - name: payload__pull_request__base
+          - name: payload__pull_request___links
+          - name: payload__pull_request__author_association
+          - name: public
+          - name: created_at
+          - name: org__id
+          - name: org__login
+          - name: org__gravatar_id
+          - name: org__url
+          - name: org__avatar_url
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+          - name: payload__comment__line
+          - name: payload__comment__position
+          - name: payload__comment__start_line
+          - name: payload__comment__original_start_line
+          - name: payload__comment__start_side
+      - name: push_event__payload__commits
+        columns:
+          - name: sha
+          - name: author__email
+          - name: author__name
+          - name: message
+          - name: distinct
+          - name: url
+          - name: _dlt_parent_id
+            tests:
+              - not_null
+          - name: _dlt_list_idx
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
