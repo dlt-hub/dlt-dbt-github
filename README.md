@@ -115,13 +115,13 @@ for data model which can be further modified as required.
 
 1. The schema of data modelled Github events above using dlt-dbt-generator:
     
-   ![picture](https://storage.googleapis.com/dlt-blog-images/dbt_github_events_dlt_dbt_v0.1.0.png)
+   ![picture](https://storage.googleapis.com/dlt-blog-images/github_events_dlt_dbt_v0.1.0.png)
 
    Here's the link to the DB diagram: [link](https://dbdiagram.io/d/github_events_dlt_dbt_v0-1-0-67a1d258263d6cf9a0f47e0e)
 
 2. The schema of data modelled Github reactions above using dlt-dbt-generator:
 
-   ![picture](https://storage.googleapis.com/dlt-blog-images/dbt_github_reactions_dlt_dbt_v0.1.0.png)
+   ![picture](https://storage.googleapis.com/dlt-blog-images/github_reactions_dlt_dbt_v0.1.0.png)
 
    Here's the link to the DB diagram: [link](https://dbdiagram.io/d/github_reactions_dlt_dbt_v0-1-0-66fe3418fb079c7ebd2d172d).
 
