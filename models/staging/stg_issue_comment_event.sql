@@ -41,8 +41,6 @@ SELECT
     payload__issue__updated_at,
     payload__issue__author_association,
     payload__issue__sub_issues_summary,
-    payload__issue__draft,
-    payload__issue__pull_request,
     payload__issue__body,
     payload__issue__reactions,
     payload__issue__timeline_url,
@@ -66,10 +64,12 @@ SELECT
     org__avatar_url,
     _dlt_load_id,
     _dlt_id,
+    payload__issue__draft,
+    payload__issue__pull_request,
     payload__issue__closed_at,
     payload__comment__performed_via_github_app,
-    payload__issue__milestone,
     payload__issue__state_reason,
+    payload__issue__milestone,
 FROM {{ source('raw_data', 'issue_comment_event') }}
 
 /* we only load table items of the currently active load ids into the staging table */

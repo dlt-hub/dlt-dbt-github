@@ -1,4 +1,4 @@
-/* Table: issues_event */
+/* Table: issue_comment_event */
 {{
     config(
         materialized='incremental'
@@ -31,6 +31,7 @@ SELECT
     t.payload__issue__labels,
     t.payload__issue__state,
     t.payload__issue__locked,
+    t.payload__issue__assignee,
     t.payload__issue__assignees,
     t.payload__issue__comments,
     t.payload__issue__created_at,
@@ -40,6 +41,17 @@ SELECT
     t.payload__issue__body,
     t.payload__issue__reactions,
     t.payload__issue__timeline_url,
+    t.payload__comment__url,
+    t.payload__comment__html_url,
+    t.payload__comment__issue_url,
+    t.payload__comment__id,
+    t.payload__comment__node_id,
+    t.payload__comment__user,
+    t.payload__comment__created_at,
+    t.payload__comment__updated_at,
+    t.payload__comment__author_association,
+    t.payload__comment__body,
+    t.payload__comment__reactions,
     t.public,
     t.created_at,
     t.org__id,
@@ -49,7 +61,10 @@ SELECT
     t.org__avatar_url,
     t._dlt_load_id,
     t._dlt_id,
-    t.payload__issue__assignee,
+    t.payload__issue__draft,
+    t.payload__issue__pull_request,
     t.payload__issue__closed_at,
+    t.payload__comment__performed_via_github_app,
     t.payload__issue__state_reason,
-FROM  {{ ref('stg_issues_event') }} as t
+    t.payload__issue__milestone,
+FROM  {{ ref('stg_issue_comment_event') }} as t

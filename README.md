@@ -35,7 +35,8 @@ This package is perfect for dbt users who want to integrate Github data into the
 
 1. Install the Github dbt package into your dbt environment.
 2. Configure your 'dbt_project.yml' file with the appropriate connection details for your data warehouse.
-3. Ensure the data from your dlt Github pipeline is available in your warehouse.
+3. Ensure the data from your dlt Github pipeline is available in your warehouse. 
+4. The GitHub pipeline integrates multiple sources. Here, we will build a model for the `github_events` source. For more details on sources, refer to the [documentation](https://dlthub.com/docs/general-usage/source).
 
 This is how the tables in dbt packages look like:
 
@@ -59,34 +60,21 @@ dbt_github_events/
 │   │   ├── dim_push_event__payload__commits.sql
 │   │   ├── dim_push_event.sql
 │   │   ├── dim_watch_event.sql
-│   ├── staging/  #Same tables as marts with prefix `stg`
-│   ├── dlt_active_load_ids.sql # Used for incremental processing of data
-│   └── dlt_processed_load.sql # Used for incremental processing of data
-├── tests/
-├── dbt_project.yml
-└── requirements.txt
-```
-
-For Github reactions:
-
-```text
-dbt_github_reactions/
-├── analysis/
-├── macros/
-├── marts/
-├── models/
-│   ├── marts/
-│   │   ├── dim__dlt_loads.sql
-│   │   ├── dim_issues__comments__reactions.sql
-│   │   ├── dim_issues__comments.sql
-│   │   ├── dim_issues__reactions.sql
-│   │   ├── dim_issues.sql
-│   │   ├── dim_pull_requests__comments__reactions.sql
-│   │   ├── dim_pull_requests__comments.sql
-│   │   ├── dim_pull_requests__reactions.sql
-│   │   ├── dim_pull_requests.sql
-│   ├── staging/ #Same tables as marts with prefix `stg`
-│   └── sources.yml
+│   ├── staging/
+│   │   ├── stg__dlt_loads.sql
+│   │   ├── stg_create_event.sql
+│   │   ├── stg_delete_event.sql
+│   │   ├── stg_fork_event.sql
+│   │   ├── stg_issue_comment_event.sql
+│   │   ├── stg_issues_event.sql
+│   │   ├── stg_pull_request_event.sql
+│   │   ├── stg_pull_request_review_comment_event.sql
+│   │   ├── stg_pull_request_review_event.sql
+│   │   ├── stg_push_event__payload__commits.sql
+│   │   ├── stg_push_event.sql
+│   │   ├── stg_watch_event.sql
+│   ├── dlt_active_load_ids.sql  # Used for incremental processing of data
+│   ├── dlt_processed_load.sql   # Used for incremental processing of data
 ├── tests/
 ├── dbt_project.yml
 └── requirements.txt
@@ -118,12 +106,6 @@ for data model which can be further modified as required.
    ![picture](https://storage.googleapis.com/dlt-blog-images/github_events_dlt_dbt_v0.1.0.png)
 
    Here's the link to the DB diagram: [link](https://dbdiagram.io/d/github_events_dlt_dbt_v0-1-0-67a1d258263d6cf9a0f47e0e)
-
-2. The schema of data modelled Github reactions above using dlt-dbt-generator:
-
-   ![picture](https://storage.googleapis.com/dlt-blog-images/github_reactions_dlt_dbt_v0.1.0.png)
-
-   Here's the link to the DB diagram: [link](https://dbdiagram.io/d/github_reactions_dlt_dbt_v0-1-0-66fe3418fb079c7ebd2d172d).
 
 > ⚠️ **Note:**
 > 

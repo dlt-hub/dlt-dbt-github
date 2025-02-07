@@ -14,7 +14,7 @@ SELECT
     author__email,
     author__name,
     message,
-    distinct,
+    "distinct",
     url,
     _dlt_parent_id,
     _dlt_list_idx,

@@ -20,7 +20,6 @@ SELECT
     t.payload__review__id,
     t.payload__review__node_id,
     t.payload__review__user,
-    t.payload__review__body,
     t.payload__review__commit_id,
     t.payload__review__submitted_at,
     t.payload__review__state,
@@ -44,7 +43,6 @@ SELECT
     t.payload__pull_request__created_at,
     t.payload__pull_request__updated_at,
     t.payload__pull_request__merge_commit_sha,
-    t.payload__pull_request__assignee,
     t.payload__pull_request__assignees,
     t.payload__pull_request__requested_reviewers,
     t.payload__pull_request__requested_teams,
@@ -68,4 +66,5 @@ SELECT
     t.org__avatar_url,
     t._dlt_load_id,
     t._dlt_id,
+    t.payload__review__body,
 FROM  {{ ref('stg_pull_request_review_event') }} as t

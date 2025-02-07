@@ -1,4 +1,4 @@
-/* Table: pull_request_review_comment_event */
+/* Table: pull_request_review_event */
 {{
     config(
         materialized='view'
@@ -7,7 +7,7 @@
 -- depends_on: {{ ref('dlt_active_load_ids') }}
 
 SELECT
-/* select which columns will be available for table 'pull_request_review_comment_event' */
+/* select which columns will be available for table 'pull_request_review_event' */
     id,
     type,
     actor__id,
@@ -20,28 +20,16 @@ SELECT
     repo__name,
     repo__url,
     payload__action,
-    payload__comment__url,
-    payload__comment__pull_request_review_id,
-    payload__comment__id,
-    payload__comment__node_id,
-    payload__comment__diff_hunk,
-    payload__comment__path,
-    payload__comment__commit_id,
-    payload__comment__original_commit_id,
-    payload__comment__user,
-    payload__comment__body,
-    payload__comment__created_at,
-    payload__comment__updated_at,
-    payload__comment__html_url,
-    payload__comment__pull_request_url,
-    payload__comment__author_association,
-    payload__comment___links,
-    payload__comment__reactions,
-    payload__comment__original_line,
-    payload__comment__side,
-    payload__comment__in_reply_to_id,
-    payload__comment__original_position,
-    payload__comment__subject_type,
+    payload__review__id,
+    payload__review__node_id,
+    payload__review__user,
+    payload__review__commit_id,
+    payload__review__submitted_at,
+    payload__review__state,
+    payload__review__html_url,
+    payload__review__pull_request_url,
+    payload__review__author_association,
+    payload__review___links,
     payload__pull_request__url,
     payload__pull_request__id,
     payload__pull_request__node_id,
@@ -58,7 +46,6 @@ SELECT
     payload__pull_request__created_at,
     payload__pull_request__updated_at,
     payload__pull_request__merge_commit_sha,
-    payload__pull_request__assignee,
     payload__pull_request__assignees,
     payload__pull_request__requested_reviewers,
     payload__pull_request__requested_teams,
@@ -82,12 +69,8 @@ SELECT
     org__avatar_url,
     _dlt_load_id,
     _dlt_id,
-    payload__comment__line,
-    payload__comment__position,
-    payload__comment__start_line,
-    payload__comment__original_start_line,
-    payload__comment__start_side,
-FROM {{ source('raw_data', 'pull_request_review_comment_event') }}
+    payload__review__body,
+FROM {{ source('raw_data', 'pull_request_review_event') }}
 
 /* we only load table items of the currently active load ids into the staging table */
 WHERE _dlt_load_id IN ( SELECT load_id FROM  {{ ref('dlt_active_load_ids') }} )

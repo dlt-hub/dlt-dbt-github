@@ -72,7 +72,7 @@ SELECT
     org__avatar_url,
     _dlt_load_id,
     _dlt_id,
-    payload__pull_request__assignee,
+    payload__pull_request__milestone,
     payload__pull_request__mergeable,
     payload__pull_request__rebaseable,
 FROM {{ source('raw_data', 'pull_request_event') }}
