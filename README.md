@@ -29,14 +29,13 @@ This package is perfect for dbt users who want to integrate Github data into the
    Follow the dlt Github [pipeline documentation](https://dlthub.com/docs/dlt-ecosystem/verified-sources/github) to set up your pipeline. Ensure you have your Github API key and destination credentials configured.
 
 3. **Run the Pipeline:**
-   Extract and load data from Github into your data warehouse by running the pipelines. As there are two seperate pipelines for github events and reactions. We'll run each seperately and model it.
+   Extract and load data from Github into your data warehouse by running the Github events. As GitHub pipeline integrates multiple sources. Here, we will build a model for the `github_events` source. For more details on sources, refer to the [documentation](https://dlthub.com/docs/general-usage/source).
 
 ### Step 2: Install and Configure the dbt Project
 
 1. Install the Github dbt package into your dbt environment.
 2. Configure your 'dbt_project.yml' file with the appropriate connection details for your data warehouse.
-3. Ensure the data from your dlt Github pipeline is available in your warehouse. 
-4. The GitHub pipeline integrates multiple sources. Here, we will build a model for the `github_events` source. For more details on sources, refer to the [documentation](https://dlthub.com/docs/general-usage/source).
+3. Ensure the data from your dlt Github events pipeline is available in your warehouse. 
 
 This is how the tables in dbt packages look like:
 
