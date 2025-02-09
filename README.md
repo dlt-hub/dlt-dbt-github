@@ -26,7 +26,7 @@ This package is perfect for dbt users who want to integrate Github data into the
    pip install dlt
    ```
 2. **Configure the Pipeline:**
-   Follow the dlt Github [pipeline documentation](https://dlthub.com/docs/dlt-ecosystem/verified-sources/github) to set up your pipeline. Ensure you have your Github API key and destination credentials configured.
+   Follow the dlt [Github pipeline documentation](https://dlthub.com/docs/dlt-ecosystem/verified-sources/github) to set up your pipeline. Ensure you have your Github API key and destination credentials configured.
 
 3. **Run the Pipeline:**
    Extract and load data from GitHub using the GitHub events pipeline into your data wareshouse. As GitHub pipeline integrates multiple sources. Here, we will build a model for the `github_events` source. For more details on sources, refer to the [documentation](https://dlthub.com/docs/general-usage/source).
@@ -114,7 +114,7 @@ for data model which can be further modified as required.
 #### Optional: Advanced Usage (Generator and Licensing)
 
 This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
-[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/). To learn more about the dlt-dbt-generator, 
+[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/) To learn more about the dlt-dbt-generator, 
 consult the [dlt-dbt-generator](https://dlthub.com/blog/dbt-gen) documentation.
 
 > The dimensional modelling part of the package was created with a declarative code generator and suffers from 
